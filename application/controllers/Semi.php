@@ -14,6 +14,11 @@ class Semi extends CI_Controller {
 
     public function Main()
     {
+		if( !$this->_isLogin() )
+		{
+			header('Location: '.HOSTURL.'/ELO/Semi/LocalLogin');
+		}
+
     	$this->load->view('semi_main');
     }
 
@@ -29,10 +34,10 @@ class Semi extends CI_Controller {
 
 	private function _isLogin()
 	{
-		if($this->session->userdata('ss_mb_id'))
-			return true;
+		if(!$this->session->userdata('ss_mb_id'))
+			return false;
 
-		return false;
+		return true;
 	}
 
 	public function RpcLogin()
